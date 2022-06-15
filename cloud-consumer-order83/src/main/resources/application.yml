@@ -12,5 +12,5 @@ management:
     web:
       exposure:
         include: "*"
-service-usrl:
+service-url:
   nacos-user-service: http://nacos-payment-provider
