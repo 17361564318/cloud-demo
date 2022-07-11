@@ -26,15 +26,13 @@ public class PaymentController {
     @Value("${server.port}")
     private String ServerPort;
 
-
     @Resource
     private DiscoveryClient discoveryClient;
-
 
     @PostMapping(value = "/payment/create")
     public CommentResult save(@RequestBody Payment payment) {
         int result = paymentService.save(payment);
-        log.info("******插入结果:" + result);
+        log.info("******插入结果:{}", result);
         if (result > 0) {
             return new CommentResult(200, "插入数据成功，ServerPort：" + ServerPort, result);
         } else {
@@ -55,9 +53,7 @@ public class PaymentController {
     @GetMapping("/payment/discovery")
     public Object discovery() {
         List<String> services = discoveryClient.getServices();
-        services.forEach(t -> {
-            log.info(t);
-        });
+        services.forEach(log::info);
         List<ServiceInstance> instances = discoveryClient.getInstances("cloud-payment-service");
         instances.forEach(s -> {
             log.info(s.getInstanceId() + "\t" + s.getHost() + "\t" + s.getPort() + "\t" + s.getUri());

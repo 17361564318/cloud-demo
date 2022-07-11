@@ -55,7 +55,6 @@ public class OrderController {
     @GetMapping("/consumer/payment/getEntity/{id}")
     public CommentResult<Payment> getEntity(@PathVariable("id") Long id) {
         ResponseEntity<CommentResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/get/" + id, CommentResult.class);
-        log.info(entity.getHeaders().toString());
         if (entity.getStatusCode().is2xxSuccessful()) {
             return entity.getBody();
         } else {
